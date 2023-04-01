@@ -3,7 +3,7 @@ A discord bot, that announces the current terror zone using the d2runewizard api
 For obtaining access to the api please refer to https://d2runewizard.com/integration
 
 
-# Usage
+## Usage
 1. Create a .env file filling the following variables:
 > BEERBOT_CLIENT_TOKEN=\<Discord client token\>  
 > BEERBOT_API_TOKEN=\<d2runewizard api token\>  
@@ -21,5 +21,5 @@ For obtaining access to the api please refer to https://d2runewizard.com/integra
 3. Install the requirements
 4. Run the bot
 
-# What's up with the name?
+## What's up with the name?
 The bot was created for personal use on a discord server called beerbaal, so this was the only logical choice
