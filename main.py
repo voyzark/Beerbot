@@ -13,6 +13,7 @@ API_TOKEN = os.getenv("BEERBOT_API_TOKEN")
 ANNOUNCEMENT_GUILDS = os.getenv("BEERBOT_ANNOUNCEMENT_GUILD").split(',')
 ANNOUNCEMENT_CHANNELS = os.getenv("BEERBOT_ANNOUNCEMENT_CHANNEL").split(',')
 ENDPOINT_TZ = os.getenv("BEERBOT_ENDPOINT_TZ")
+ENDPOINT_NEXT_TZ = os.getenv("BEERBOT_ENDPOINT_NEXT_TZ")
 LOG_FILE = os.getenv("BEERBOT_LOG_FILE")
 LOG_LEVEL = os.getenv("BEERBOT_LOG_LEVEL")
 D2R_CONTACT = os.getenv("BEERBOT_D2R_CONTACT")
@@ -58,6 +59,14 @@ async def on_tz_updated():
         zone = tz['terrorZone']['highestProbabilityZone']['zone']
         act = tz['terrorZone']['highestProbabilityZone']['act'][-1]
 
+        if next_tz := await get_next_tz():
+            next_zone = next_tz['name']
+            next_act = next_tz['act']
+
+        message = f"The Terrorzone is now: **{zone}** (Act: {act})"
+        if next_zone and next_act:
+            message += f"\nThe next one probably is: **{next_zone}** (Act: {next_act})"
+
         if last_terrorzone == zone and zone_announced:
             logger.debug(f"TZ hasn't changed since we last checked. (before: {last_terrorzone}, now: {zone})")
             return
@@ -70,7 +79,7 @@ async def on_tz_updated():
             zone_announced = True
             for channel in channels:
                 logger.info(f'Announcing TZ: {zone} in channel: "{channel.name}"@"{channel.guild.name}"')
-                await channel.send(f"The Terrorzone is now: **{zone}** (Act: {act})")
+                await channel.send(message)
         else:
             logger.error("Found no channel to announce")
 
@@ -95,5 +104,14 @@ async def get_current_tz():
             
             return await resp.json()
 
+
+async def get_next_tz():
+    async with aiohttp.ClientSession() as session:
+        async with session.get(ENDPOINT_NEXT_TZ, ) as resp:
+            if not resp.ok:
+                logger.error(f"Failed to get next TZ! Response from api: {await resp.text()}")
+                return None
+            
+            return await resp.json()
 
 client.run(CLIENT_TOKEN)
