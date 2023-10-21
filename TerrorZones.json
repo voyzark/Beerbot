@@ -1,0 +1,777 @@
+[
+	{
+		"d2emu": "2",
+		"d2tz": "1-1",
+		"pumpkin": "Blood Moor and Den of Evil",
+		"name": "Blood Moor and Den of Evil",
+		"act": 1,
+		"immunities": [
+			"f",
+			"c"
+		],
+		"bosspacks": [
+			7,
+			9
+		],
+		"superuniques": [
+			"Corpsefire"
+		],
+		"sparkly_chests": 0
+	},
+	{
+		"d2emu": "3",
+		"d2tz": "1-2",
+		"pumpkin": "Cold Plains and The Cave",
+		"name": "Cold Plains and The Cave",
+		"act": 1,
+		"immunities": [
+			"f",
+			"c",
+			"l"
+		],
+		"bosspacks": [
+			13,
+			16
+		],
+		"superuniques": [
+			"Bishibosh",
+			"Coldcrow"
+		],
+		"sparkly_chests": 1
+	},
+	{
+		"d2emu": "17",
+		"d2tz": "1-3",
+		"pumpkin": "Burial Grounds, The Crypt and The Mausoleum",
+		"name": "Burial Grounds, The Crypt and The Mausoleum",
+		"act": 1,
+		"immunities": [
+			"l"
+		],
+		"bosspacks": [
+			8,
+			10
+		],
+		"superuniques": [
+			"Blood Raven",
+			"Bonebreaker"
+		],
+		"sparkly_chests": 2
+	},
+	{
+		"d2emu": "4",
+		"d2tz": "1-4",
+		"pumpkin": "Stony Field",
+		"name": "Stony Field",
+		"act": 1,
+		"immunities": [
+			"f",
+			"c",
+			"l",
+			"p"
+		],
+		"bosspacks": [
+			7,
+			9
+		],
+		"superuniques": [
+			"Rakanishu"
+		],
+		"sparkly_chests": 0
+	},
+	{
+		"d2emu": "38",
+		"d2tz": "1-5",
+		"pumpkin": "Tristram",
+		"name": "Tristram",
+		"act": 1,
+		"immunities": [
+			"f",
+			"l",
+			"p"
+		],
+		"bosspacks": [
+			5,
+			6
+		],
+		"superuniques": [
+			"Griswold"
+		],
+		"sparkly_chests": 0
+	},
+	{
+		"d2emu": "5",
+		"d2tz": "1-6",
+		"pumpkin": "Dark Wood and Underground Passage",
+		"name": "Dark Wood and Underground Passage",
+		"act": 1,
+		"immunities": [
+			"f",
+			"c",
+			"l",
+			"p"
+		],
+		"bosspacks": [
+			16,
+			22
+		],
+		"superuniques": [
+			"Treehead Woodfist"
+		],
+		"sparkly_chests": 1
+	},
+	{
+		"d2emu": "6",
+		"d2tz": "1-7",
+		"pumpkin": "Black Marsh and The Hole",
+		"name": "Black Marsh and The Hole",
+		"act": 1,
+		"immunities": [
+			"f",
+			"c",
+			"l",
+			"p"
+		],
+		"bosspacks": [
+			15,
+			20
+		],
+		"superuniques": [],
+		"sparkly_chests": 1
+	},
+	{
+		"d2emu": "20",
+		"d2tz": "1-8",
+		"pumpkin": "The Forgotten Tower",
+		"name": "The Forgotten Tower",
+		"act": 1,
+		"immunities": [
+			"f",
+			"l",
+			"ph"
+		],
+		"bosspacks": [
+			15,
+			20
+		],
+		"superuniques": [
+			"The Countess"
+		],
+		"sparkly_chests": 0
+	},
+	{
+		"d2emu": "12",
+		"d2tz": "1-9",
+		"pumpkin": "The Pit",
+		"name": "The Pit",
+		"act": 1,
+		"immunities": [
+			"f",
+			"c",
+			"l"
+		],
+		"bosspacks": [
+			8,
+			11
+		],
+		"superuniques": [],
+		"sparkly_chests": 1
+	},
+	{
+		"d2emu": "28",
+		"d2tz": "1-10",
+		"pumpkin": "Jail and Barracks",
+		"name": "Jail and Barracks",
+		"act": 1,
+		"immunities": [
+			"f",
+			"c",
+			"p",
+			"ph"
+		],
+		"bosspacks": [
+			24,
+			32
+		],
+		"superuniques": [
+			"Pitspawn Fouldog",
+			"The Smith"
+		],
+		"sparkly_chests": 0
+	},
+	{
+		"d2emu": "33",
+		"d2tz": "1-11",
+		"pumpkin": "Cathedral and Catacombs",
+		"name": "Cathedral and Catacombs",
+		"act": 1,
+		"immunities": [
+			"f",
+			"c",
+			"l",
+			"ph"
+		],
+		"bosspacks": [
+			27,
+			35
+		],
+		"superuniques": [
+			"Bone Ash",
+			"Andariel"
+		],
+		"sparkly_chests": 0
+	},
+	{
+		"d2emu": "39",
+		"d2tz": "1-12",
+		"pumpkin": "Moo Moo Farm",
+		"name": "Moo Moo Farm",
+		"act": 1,
+		"immunities": [
+			""
+		],
+		"bosspacks": [
+			6,
+			8
+		],
+		"superuniques": [
+			"The Cow King"
+		],
+		"sparkly_chests": 0
+	},
+	{
+		"d2emu": "47",
+		"d2tz": "2-1",
+		"pumpkin": "Lut Gholein Sewers",
+		"name": "Lut Gholein Sewers",
+		"act": 2,
+		"immunities": [
+			"f",
+			"c",
+			"p",
+			"m"
+		],
+		"bosspacks": [
+			18,
+			24
+		],
+		"superuniques": [
+			"Radament"
+		],
+		"sparkly_chests": 0
+	},
+	{
+		"d2emu": "41",
+		"d2tz": "2-2",
+		"pumpkin": "Rocky Waste and Stony Tomb",
+		"name": "Rocky Waste and Stony Tomb",
+		"act": 2,
+		"immunities": [
+			"f",
+			"c",
+			"l",
+			"p",
+			"m"
+		],
+		"bosspacks": [
+			17,
+			23
+		],
+		"superuniques": [
+			"Creeping Feature"
+		],
+		"sparkly_chests": 1
+	},
+	{
+		"d2emu": "42",
+		"d2tz": "2-3",
+		"pumpkin": "Dry Hills and Halls of the Dead",
+		"name": "Dry Hills and Halls of the Dead",
+		"act": 2,
+		"immunities": [
+			"f",
+			"c",
+			"l",
+			"p"
+		],
+		"bosspacks": [
+			20,
+			27
+		],
+		"superuniques": [
+			"Bloodwitch the Wild"
+		],
+		"sparkly_chests": 1
+	},
+	{
+		"d2emu": "43",
+		"d2tz": "2-4",
+		"pumpkin": "Far Oasis",
+		"name": "Far Oasis",
+		"act": 2,
+		"immunities": [
+			"l",
+			"p",
+			"ph"
+		],
+		"bosspacks": [
+			7,
+			9
+		],
+		"superuniques": [
+			"Beetleburst"
+		],
+		"sparkly_chests": 0
+	},
+	{
+		"d2emu": "65",
+		"d2tz": "2-5",
+		"pumpkin": "Ancient Tunnels",
+		"name": "Ancient Tunnels",
+		"act": 2,
+		"immunities": [
+			"f",
+			"l",
+			"p",
+			"m"
+		],
+		"bosspacks": [
+			6,
+			8
+		],
+		"superuniques": [],
+		"sparkly_chests": 1
+	},
+	{
+		"d2emu": "44",
+		"d2tz": "2-6",
+		"pumpkin": "Lost City, Valley of Snakes, and Claw Viper Temple",
+		"name": "Lost City, Valley of Snakes and Claw Viper Temple",
+		"act": 2,
+		"immunities": [
+			"f",
+			"c",
+			"l",
+			"p",
+			"m"
+		],
+		"bosspacks": [
+			21,
+			28
+		],
+		"superuniques": [
+			"Dark Elder",
+			"Fangskin"
+		],
+		"sparkly_chests": 0
+	},
+	{
+		"d2emu": "74",
+		"d2tz": "2-7",
+		"pumpkin": "Arcane Sanctuary",
+		"name": "Arcane Sanctuary",
+		"act": 2,
+		"immunities": [
+			"f",
+			"c",
+			"l",
+			"p",
+			"ph"
+		],
+		"bosspacks": [
+			7,
+			9
+		],
+		"superuniques": [
+			"The Summoner"
+		],
+		"sparkly_chests": 0
+	},
+	{
+		"d2emu": "66",
+		"d2tz": "2-8",
+		"pumpkin": "Tal Rasha's Tombs and Tal Rasha's Chamber",
+		"name": "Tal Rasha's Tombs and Tal Rasha's Chamber",
+		"act": 2,
+		"immunities": [
+			"f",
+			"c",
+			"l",
+			"p",
+			"m"
+		],
+		"bosspacks": [
+			49,
+			63
+		],
+		"superuniques": [
+			"Ancient Kaa The Soulless",
+			"Duriel"
+		],
+		"sparkly_chests": 6
+	},
+	{
+		"d2emu": "76",
+		"d2tz": "3-1",
+		"pumpkin": "Spider Forest and Spider Cavern",
+		"name": "Spider Forest and Spider Cavern",
+		"act": 3,
+		"immunities": [
+			"c",
+			"l",
+			"p",
+			"f"
+		],
+		"bosspacks": [
+			14,
+			20
+		],
+		"superuniques": [
+			"Sszark The Burning"
+		],
+		"sparkly_chests": 1
+	},
+	{
+		"d2emu": "78",
+		"d2tz": "3-2",
+		"pumpkin": "Flayer Jungle and Flayer Dungeon",
+		"name": "Flayer Jungle and Flayer Dungeon",
+		"act": 3,
+		"immunities": [
+			"f",
+			"c",
+			"l",
+			"p",
+			"m",
+			"ph"
+		],
+		"bosspacks": [
+			22,
+			29
+		],
+		"superuniques": [
+			"Stormtree",
+			"Witch Doctor Endugu"
+		],
+		"sparkly_chests": 1
+	},
+	{
+		"d2emu": "77",
+		"d2tz": "3-3",
+		"pumpkin": "Great Marsh",
+		"name": "Great Marsh",
+		"act": 3,
+		"immunities": [
+			"f",
+			"c",
+			"l"
+		],
+		"bosspacks": [
+			10,
+			15
+		],
+		"superuniques": [],
+		"sparkly_chests": 1
+	},
+	{
+		"d2emu": "80",
+		"d2tz": "3-4",
+		"pumpkin": "Kurast Bazaar, Ruined Temple, and Disused Fane",
+		"name": "Kurast Bazaar, Ruined Temple and Disused Fane",
+		"act": 3,
+		"immunities": [
+			"f",
+			"c",
+			"l",
+			"p",
+			"m",
+			"ph"
+		],
+		"bosspacks": [
+			15,
+			17
+		],
+		"superuniques": [
+			"Battlemaid Sarina"
+		],
+		"sparkly_chests": 0
+	},
+	{
+		"d2emu": "83",
+		"d2tz": "3-5",
+		"pumpkin": "Travincal",
+		"name": "Travincal",
+		"act": 3,
+		"immunities": [
+			"f",
+			"c",
+			"l",
+			"p"
+		],
+		"bosspacks": [
+			6,
+			8
+		],
+		"superuniques": [
+			"Ismail Vilehand",
+			"Toorc Icefist",
+			"Geleb Flamefinger"
+		],
+		"sparkly_chests": 0
+	},
+	{
+		"d2emu": "100",
+		"d2tz": "3-6",
+		"pumpkin": "Durance of Hate",
+		"name": "Durance of Hate",
+		"act": 3,
+		"immunities": [
+			"f",
+			"c",
+			"l",
+			"p"
+		],
+		"bosspacks": [
+			15,
+			21
+		],
+		"superuniques": [
+			"Wyand Voidbringer",
+			"Maffer Dragonhand",
+			"Bremm Sparkfist",
+			"Mephisto"
+		],
+		"sparkly_chests": 0
+	},
+	{
+		"d2emu": "104",
+		"d2tz": "4-1",
+		"pumpkin": "Outer Steppes and Plains of Despair",
+		"name": "Outer Steppes and Plains of Despair",
+		"act": 4,
+		"immunities": [
+			"f",
+			"c",
+			"l",
+			"p"
+		],
+		"bosspacks": [
+			16,
+			20
+		],
+		"superuniques": [
+			"Izual"
+		],
+		"sparkly_chests": 0
+	},
+	{
+		"d2emu": "106",
+		"d2tz": "4-2",
+		"pumpkin": "River of Flame and City of the Damned",
+		"name": "River of Flame and City of the Damned",
+		"act": 4,
+		"immunities": [
+			"f",
+			"c",
+			"l",
+			"p"
+		],
+		"bosspacks": [
+			14,
+			17
+		],
+		"superuniques": [
+			"Hephasto The Armorer"
+		],
+		"sparkly_chests": 0
+	},
+	{
+		"d2emu": "108",
+		"d2tz": "4-3",
+		"pumpkin": "Chaos Sanctuary",
+		"name": "Chaos Sanctuary",
+		"act": 4,
+		"immunities": [
+			"f",
+			"c",
+			"l"
+		],
+		"bosspacks": [
+			6,
+			7
+		],
+		"superuniques": [
+			"Grand Vizier of Chaos",
+			"Infector of Souls",
+			"Lord De Seis",
+			"Diablo"
+		],
+		"sparkly_chests": 0
+	},
+	{
+		"d2emu": "110",
+		"d2tz": "5-1",
+		"pumpkin": "Bloody Foothills, Frigid Highlands and Abaddon",
+		"name": "Bloody Foothills, Frigid Highlands and Abaddon",
+		"act": 5,
+		"immunities": [
+			"f",
+			"c",
+			"l",
+			"p",
+			"m ",
+			"ph"
+		],
+		"bosspacks": [
+			19,
+			25
+		],
+		"superuniques": [
+			"Dac Farren",
+			"Shenk The Overseer",
+			"Eldritch the Rectifier",
+			"Sharptooth Slayer",
+			"Eyeback the Unleashed"
+		],
+		"sparkly_chests": 1
+	},
+	{
+		"d2emu": "115",
+		"d2tz": "5-2",
+		"pumpkin": "Glacial Trail and Drifter Cavern",
+		"name": "Glacial Trail and Drifter Cavern",
+		"act": 5,
+		"immunities": [
+			"f",
+			"c",
+			"l",
+			"p",
+			"ph"
+		],
+		"bosspacks": [
+			13,
+			17
+		],
+		"superuniques": [
+			"Bonesaw Breaker"
+		],
+		"sparkly_chests": 2
+	},
+	{
+		"d2emu": "118",
+		"d2tz": "5-3",
+		"pumpkin": "Ancient's Way and Icy Cellar",
+		"name": "Ancient's Way and Icy Cellar",
+		"act": 5,
+		"immunities": [
+			"c",
+			"l",
+			"p",
+			"ph"
+		],
+		"bosspacks": [
+			6,
+			8
+		],
+		"superuniques": [
+			"Snapchip Shatter"
+		],
+		"sparkly_chests": 1
+	},
+	{
+		"d2emu": "112",
+		"d2tz": "5-4",
+		"pumpkin": "Arreat Plateau and Pit of Acheron",
+		"name": "Arreat Plateau and Pit of Acheron",
+		"act": 5,
+		"immunities": [
+			"f",
+			"c",
+			"l",
+			"p"
+		],
+		"bosspacks": [
+			15,
+			19
+		],
+		"superuniques": [
+			"Thresh Socket"
+		],
+		"sparkly_chests": 1
+	},
+	{
+		"d2emu": "113",
+		"d2tz": "5-5",
+		"pumpkin": "Crystalline Passage and Frozen River",
+		"name": "Crystalline Passage and Frozen River",
+		"act": 5,
+		"immunities": [
+			"f",
+			"c",
+			"l",
+			"p",
+			"m",
+			"ph"
+		],
+		"bosspacks": [
+			13,
+			17
+		],
+		"superuniques": [
+			"Frozenstein"
+		],
+		"sparkly_chests": 0
+	},
+	{
+		"d2emu": "121",
+		"d2tz": "5-6",
+		"pumpkin": "Nihlathak's Temple and Temple Halls",
+		"name": "Nihlathak's Temple and Temple Halls",
+		"act": 5,
+		"immunities": [
+			"f",
+			"c",
+			"l",
+			"p",
+			"m",
+			"ph"
+		],
+		"bosspacks": [
+			12,
+			14
+		],
+		"superuniques": [
+			"Pindleskin",
+			"Nihlathak"
+		],
+		"sparkly_chests": 2
+	},
+	{
+		"d2emu": "128",
+		"d2tz": "5-7",
+		"pumpkin": "Worldstone Keep, Throne of Destruction, and Worldstone Chamber",
+		"name": "Worldstone Keep, Throne of Destruction and Worldstone Chamber",
+		"act": 5,
+		"immunities": [
+			"f",
+			"c",
+			"l",
+			"p",
+			"m",
+			"ph"
+		],
+		"bosspacks": [
+			22,
+			29
+		],
+		"superuniques": [
+			"Colenzo The Annihilator",
+			"Achmel The Cursed",
+			"Bartuc The Bloody",
+			"Ventar The Unholy",
+			"Lister The Tormentor",
+			"Baal"
+		],
+		"sparkly_chests": 0
+	}
+]

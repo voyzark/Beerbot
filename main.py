@@ -3,6 +3,7 @@ import aiohttp
 import logging
 import dotenv
 import os
+import tzinfo
 from apscheduler.triggers.cron import CronTrigger
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
@@ -13,7 +14,7 @@ API_TOKEN = os.getenv("BEERBOT_API_TOKEN")
 ANNOUNCEMENT_GUILDS = os.getenv("BEERBOT_ANNOUNCEMENT_GUILD").split(',')
 ANNOUNCEMENT_CHANNELS = os.getenv("BEERBOT_ANNOUNCEMENT_CHANNEL").split(',')
 ENDPOINT_TZ = os.getenv("BEERBOT_ENDPOINT_TZ")
-ENDPOINT_NEXT_TZ = os.getenv("BEERBOT_ENDPOINT_NEXT_TZ")
+ENDPOINT_TZINFO = os.getenv("BEERBOT_ENDPOINT_TZINFO")
 LOG_FILE = os.getenv("BEERBOT_LOG_FILE")
 LOG_LEVEL = os.getenv("BEERBOT_LOG_LEVEL")
 D2R_CONTACT = os.getenv("BEERBOT_D2R_CONTACT")
@@ -54,34 +55,42 @@ async def on_tz_updated():
     global last_terrorzone
     global zone_announced
     
-    await client.wait_until_ready()
-    if tz := await get_current_tz():
-        zone = tz['terrorZone']['highestProbabilityZone']['zone']
-        act = tz['terrorZone']['highestProbabilityZone']['act'][-1]
-
-        if next_tz := await get_next_tz():
-            next_zone = next_tz['name']
-            next_act = next_tz['act']
-
-        message = f"The Terrorzone is now: **{zone}** (Act: {act})"
-        if next_zone and next_act:
-            message += f"\nThe next one probably is: **{next_zone}** (Act: {next_act})"
-
-        if last_terrorzone == zone and zone_announced:
-            logger.debug(f"TZ hasn't changed since we last checked. (before: {last_terrorzone}, now: {zone})")
+    await client.wait_until_ready()   
+    
+    if tzs := await tzinfo.get_current_and_next_tz(ENDPOINT_TZINFO, logger):
+        zone, act = tzs[0].zone, tzs[0].act
+        next_zone, next_act = tzs[1].zone, tzs[1].act
+    elif tz := await get_current_tz():
+        try:
+            zone = tz['terrorZone']['highestProbabilityZone']['zone']
+            act = tz['terrorZone']['highestProbabilityZone']['act'][-1]
+        except Exception as e:
+            logger.error(f"error getting tz from runewizard api: {e}")
             return
-        else:
-            logger.debug(f"TZ has changed since we last checked. (before: {last_terrorzone}, now: {zone})")
-            last_terrorzone = zone
-            zone_announced = False
+    else:
+        logger.error(f"could not get tz from any api")
+        return
+    
 
-        if channels := get_announcement_channels():
-            zone_announced = True
-            for channel in channels:
-                logger.info(f'Announcing TZ: {zone} in channel: "{channel.name}"@"{channel.guild.name}"')
-                await channel.send(message)
-        else:
-            logger.error("Found no channel to announce")
+    message = f"The Terrorzone is now: **{zone}** (Act: {act})"
+    if next_zone and next_act:
+        message += f"\nThe next one probably is: **{next_zone}** (Act: {next_act})"
+
+    if last_terrorzone == zone and zone_announced:
+        logger.debug(f"TZ hasn't changed since we last checked. (before: {last_terrorzone}, now: {zone})")
+        return
+    else:
+        logger.debug(f"TZ has changed since we last checked. (before: {last_terrorzone}, now: {zone})")
+        last_terrorzone = zone
+        zone_announced = False
+
+    if channels := get_announcement_channels():
+        zone_announced = True
+        for channel in channels:
+            logger.info(f'Announcing TZ: {zone} in channel: "{channel.name}"@"{channel.guild.name}"')
+            await channel.send(message)
+    else:
+        logger.error("Found no channel to announce")
 
 
 def get_announcement_channels() -> list[discord.guild.TextChannel]:
@@ -104,14 +113,5 @@ async def get_current_tz():
             
             return await resp.json()
 
-
-async def get_next_tz():
-    async with aiohttp.ClientSession() as session:
-        async with session.get(ENDPOINT_NEXT_TZ, ) as resp:
-            if not resp.ok:
-                logger.error(f"Failed to get next TZ! Response from api: {await resp.text()}")
-                return None
-            
-            return await resp.json()
 
 client.run(CLIENT_TOKEN)
