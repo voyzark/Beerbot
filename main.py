@@ -44,7 +44,7 @@ async def on_ready():
     logger.info(f'{client.user} has connected to Discord')
     
     scheduler = AsyncIOScheduler(timezone="Europe/Berlin")
-    cron_trigger = CronTrigger.from_crontab("0,2,5,7,9 * * * *") # run every hour on minutes 0, 2, 5, 7, 9
+    cron_trigger = CronTrigger.from_crontab("0,2,4,6,8 * * * *") # run every hour on minutes 0, 2, 4, 6, 8
     scheduler.add_job(client.dispatch, cron_trigger, ["tz_updated"])
     scheduler.start()
 
