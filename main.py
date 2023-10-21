@@ -4,6 +4,7 @@ import logging
 import dotenv
 import os
 import tzinfo
+import asyncio
 from apscheduler.triggers.cron import CronTrigger
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
@@ -43,21 +44,26 @@ async def on_ready():
     logger.info(f'{client.user} has connected to Discord')
     
     scheduler = AsyncIOScheduler(timezone="Europe/Berlin")
-    cron_trigger = CronTrigger.from_crontab("3,5,7,9 * * * *") # run every hour on minutes 3, 5, 7, 9
+    cron_trigger = CronTrigger.from_crontab("0,2,5,7,9 * * * *") # run every hour on minutes 0, 2, 5, 7, 9
     scheduler.add_job(client.dispatch, cron_trigger, ["tz_updated"])
     scheduler.start()
 
 
 @client.event
 async def on_tz_updated():    
+    await asyncio.sleep(30)
+    
     logger.debug(f"Checking for TZ update")
     
     global last_terrorzone
     global zone_announced
     
+    zone, act, next_zone, next_act = None, None, None, None
+    
     await client.wait_until_ready()   
     
     if tzs := await tzinfo.get_current_and_next_tz(ENDPOINT_TZINFO, logger):
+        logger.debug(f"success using tzinfo: {tzs}")
         zone, act = tzs[0].zone, tzs[0].act
         next_zone, next_act = tzs[1].zone, tzs[1].act
     elif tz := await get_current_tz():
@@ -72,9 +78,9 @@ async def on_tz_updated():
         return
     
 
-    message = f"The Terrorzone is now: **{zone}** (Act: {act})"
+    message = f"Current TZ: **{zone}** (Act: {act})"
     if next_zone and next_act:
-        message += f"\nThe next one probably is: **{next_zone}** (Act: {next_act})"
+        message += f"\n> Next: `{next_zone} (Act: {next_act})`"
 
     if last_terrorzone == zone and zone_announced:
         logger.debug(f"TZ hasn't changed since we last checked. (before: {last_terrorzone}, now: {zone})")

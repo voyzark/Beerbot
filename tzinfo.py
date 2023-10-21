@@ -54,4 +54,3 @@ async def get_current_and_next_tz(url: str, logger: logging.Logger):
     except Exception as e:
         logger.error(f"Error in tzinfo.get_current_and_next_tz: {e}")
         return None
-    
