@@ -52,7 +52,7 @@ async def on_ready():
     cron_trigger_tz = CronTrigger.from_crontab("0,2,4,6,8 * * * *") # run every hour on minutes 0, 2, 4, 6, 8
     scheduler.add_job(client.dispatch, cron_trigger_tz, ["tz_updated"])
     
-    cron_trigger_sr_date = CronTrigger.from_crontab("30 20 * * 3") # run every thursday at 20:30
+    cron_trigger_sr_date = CronTrigger.from_crontab("30 20 * * 5") # run every thursday at 20:30
     scheduler.add_job(client.dispatch, cron_trigger_sr_date, ["speedrun_date_announcement"])
     
     scheduler.start()
