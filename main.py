@@ -5,6 +5,8 @@ import dotenv
 import os
 import tzinfo
 import asyncio
+import dateutil
+from datetime import datetime, timedelta
 from apscheduler.triggers.cron import CronTrigger
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
@@ -12,8 +14,10 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 dotenv.load_dotenv()
 CLIENT_TOKEN = os.getenv("BEERBOT_CLIENT_TOKEN")
 API_TOKEN = os.getenv("BEERBOT_API_TOKEN")
-ANNOUNCEMENT_GUILDS = os.getenv("BEERBOT_ANNOUNCEMENT_GUILD").split(',')
-ANNOUNCEMENT_CHANNELS = os.getenv("BEERBOT_ANNOUNCEMENT_CHANNEL").split(',')
+ANNOUNCEMENT_GUILDS_TZ = os.getenv("BEERBOT_ANNOUNCEMENT_GUILD").split(',')
+ANNOUNCEMENT_CHANNELS_TZ = os.getenv("BEERBOT_ANNOUNCEMENT_CHANNEL").split(',')
+ANNOUNCEMENT_GUILDS_DATE = os.getenv("BEERBOT_ANNOUNCEMENT_GUILD_DATE").split(',')
+ANNOUNCEMENT_CHANNELS_DATE = os.getenv("BEERBOT_ANNOUNCEMENT_CHANNEL_DATE").split(',')
 ENDPOINT_TZ = os.getenv("BEERBOT_ENDPOINT_TZ")
 ENDPOINT_TZINFO = os.getenv("BEERBOT_ENDPOINT_TZINFO")
 LOG_FILE = os.getenv("BEERBOT_LOG_FILE")
@@ -44,8 +48,13 @@ async def on_ready():
     logger.info(f'{client.user} has connected to Discord')
     
     scheduler = AsyncIOScheduler(timezone="Europe/Berlin")
-    cron_trigger = CronTrigger.from_crontab("0,2,4,6,8 * * * *") # run every hour on minutes 0, 2, 4, 6, 8
-    scheduler.add_job(client.dispatch, cron_trigger, ["tz_updated"])
+    
+    cron_trigger_tz = CronTrigger.from_crontab("0,2,4,6,8 * * * *") # run every hour on minutes 0, 2, 4, 6, 8
+    scheduler.add_job(client.dispatch, cron_trigger_tz, ["tz_updated"])
+    
+    cron_trigger_sr_date = CronTrigger.from_crontab("30 20 * * 3") # run every thursday at 20:30
+    scheduler.add_job(client.dispatch, cron_trigger_sr_date, ["speedrun_date_announcement"])
+    
     scheduler.start()
 
 
@@ -90,7 +99,7 @@ async def on_tz_updated():
         last_terrorzone = zone
         zone_announced = False
 
-    if channels := get_announcement_channels():
+    if channels := get_announcement_channels_tz():
         zone_announced = True
         for channel in channels:
             logger.info(f'Announcing TZ: {zone} in channel: "{channel.name}"@"{channel.guild.name}"')
@@ -99,11 +108,52 @@ async def on_tz_updated():
         logger.error("Found no channel to announce")
 
 
-def get_announcement_channels() -> list[discord.guild.TextChannel]:
-    guilds = [guild for guild in client.guilds if guild.name in ANNOUNCEMENT_GUILDS]
+@client.event
+async def on_speedrun_date_announcement():
+    start = dateutil.next_monday() + timedelta(hours=20)
+    channels = get_announcement_channels_date()
+    
+    for i in range(1, 7):
+        message = dateutil.format_german(start + timedelta(days=i))
+        logger.info("Announcing Speedrun dates")
+        for channel in channels:
+            msg = await channel.send(message)
+            await msg.add_reaction("👍")
+            await msg.add_reaction("👎")
+            await msg.add_reaction("🤷‍♂️")
+
+
+@client.event
+async def on_raw_reaction_add(payload: discord.RawReactionActionEvent):
+    logger.debug("Reaction added")
+    
+    if payload.user_id == client.user.id:
+        logger.debug("Ignore our own reaction")
+        return
+    
+    chan = await client.fetch_channel(payload.channel_id)
+    msg = await chan.fetch_message(payload.message_id)    
+    
+    for reaction in msg.reactions:
+        if reaction.count > 3 and reaction.me:
+            logger.debug(f"Removing my own {reaction.emoji}")
+            await reaction.remove(client.user)
+
+
+def get_announcement_channels_tz() -> list[discord.guild.TextChannel]:
+    guilds = [guild for guild in client.guilds if guild.name in ANNOUNCEMENT_GUILDS_TZ]
     channels = []
     for guild in guilds:
-        channels += [chan for chan in guild.channels if chan.name in ANNOUNCEMENT_CHANNELS]
+        channels += [chan for chan in guild.channels if chan.name in ANNOUNCEMENT_CHANNELS_TZ]
+
+    return channels
+
+
+def get_announcement_channels_date() -> list[discord.guild.TextChannel]:
+    guilds = [guild for guild in client.guilds if guild.name in ANNOUNCEMENT_GUILDS_DATE]
+    channels = []
+    for guild in guilds:
+        channels += [chan for chan in guild.channels if chan.name in ANNOUNCEMENT_CHANNELS_DATE]
 
     return channels
 
