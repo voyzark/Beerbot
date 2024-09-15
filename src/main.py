@@ -9,8 +9,7 @@ from apscheduler.triggers.interval import IntervalTrigger
 from apscheduler.triggers.cron import CronTrigger
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
-# Lod Config from environment
-# dotenv.load_dotenv()
+# Load Config from environment
 CLIENT_TOKEN = os.getenv("CLIENT_TOKEN")
 ANNOUNCEMENT_GUILDS_TZ = os.getenv("ANNOUNCEMENT_GUILD").split(',')
 ANNOUNCEMENT_CHANNELS_TZ = os.getenv("ANNOUNCEMENT_CHANNEL").split(',')
@@ -22,21 +21,22 @@ MONGO_DB_CONNECTION = os.getenv("MONGO_DB_CONNECTION", "mongodb://localhost:2701
 MONGO_DB_DATABASE = os.getenv("MONGO_DB_DATABASE", "d2tz")
 MONGO_DB_COLLECTION = os.getenv("MONGO_DB_COLLECTION", "tz-history")
 
-
 # Logging
-logging.basicConfig(
-        stream=sys.stdout,
-        level=LOG_LEVEL,
-        format="[%(asctime)s] :: %(name)s :: %(levelname)s :: %(message)s", 
-        datefmt='%Y-%m-%d %H:%M:%S'
-    )
+formatter = discord.utils._ColourFormatter()
+handler = logging.StreamHandler(sys.stdout)
+handler.setFormatter(formatter)
+
+root_logger = logging.getLogger()
+root_logger.setLevel(LOG_LEVEL)
+root_logger.addHandler(handler)
+
+# This logger will spam us, when we keep it in INFO
+logging.getLogger('apscheduler.executors.default').setLevel(logging.WARNING)
 
 # Global Variables
 logger = logging.getLogger('beerbot')
 intents = discord.Intents.default()
 client = discord.Client(intents=intents)
-last_terrorzone = os.getenv('BEERBOT_LAST_ZONE') or None
-zone_announced = last_terrorzone is not None
 
 tz_store = MongoDbStore(MONGO_DB_CONNECTION, MONGO_DB_DATABASE, MONGO_DB_COLLECTION)
 
@@ -47,10 +47,10 @@ async def on_ready():
     
     scheduler = AsyncIOScheduler(timezone="Europe/Berlin")
     
-    cron_trigger_tz = IntervalTrigger(seconds=30)
+    cron_trigger_tz = IntervalTrigger(seconds=15)
     scheduler.add_job(client.dispatch, cron_trigger_tz, ["tz_updated"])
     
-    cron_trigger_sr_date = CronTrigger.from_crontab("30 20 * * 5") # run every thursday at 20:30
+    cron_trigger_sr_date = CronTrigger.from_crontab("30 20 * * 6") # run every saturday at 20:30
     scheduler.add_job(client.dispatch, cron_trigger_sr_date, ["speedrun_date_announcement"])
     
     scheduler.start()
@@ -58,7 +58,7 @@ async def on_ready():
 
 @client.event
 async def on_tz_updated():    
-    logger.debug("Checking for updated zones")    
+    logger.debug("Checking for updated zones...")    
     await client.wait_until_ready()
     
     zones = sorted(
@@ -66,9 +66,9 @@ async def on_tz_updated():
         key=lambda zone: zone.time
     )
     
-    # if len(messages) == 0:
-    #     logger.info("No new zones to announce")
-    #     return
+    if len(zones) == 0:
+        logger.debug("No new zones to announce...")
+        return
     
     if channels := get_announcement_channels_tz():
         for channel in channels:
@@ -78,7 +78,7 @@ async def on_tz_updated():
                 await channel.send(message)
                 await tz_store.update(TerrorZone(name=zone.name, act=zone.act, time=zone.time, announced=True))
     else:
-        logger.error("Found no channel to announce")
+        logger.error("no channel to announce the zones in")
 
 
 @client.event
