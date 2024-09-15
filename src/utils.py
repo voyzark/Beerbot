@@ -16,6 +16,14 @@ def format_german(dt: datetime) -> str:
     weekday = weekday_abbreviation[dt.weekday()]
     return f'{weekday}, {dt.strftime("%d.%m. %H:%M Uhr")}'
 
-if __name__ == '__main__':
-    dt = next_monday() + timedelta(hours=20)
-    print( format_german(dt) )
+
+def round_down_hour(dt: datetime) -> datetime:
+    return datetime(dt.year, dt.month, dt.day, dt.hour, 0, 0, 0)
+
+
+def round_up_hour(dt: datetime) -> datetime:
+    new_dt = datetime(dt.year, dt.month, dt.day, dt.hour, 0, 0, 0)
+    new_dt += timedelta(hours=1)
+    return new_dt
+
+    

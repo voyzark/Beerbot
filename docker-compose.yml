@@ -1,0 +1,9 @@
+services:
+  tz-getter:
+    build: .
+    restart: unless-stopped
+    environment:
+      - PYTHONUNBUFFERED=1
+      - TZ=Europe/Berlin
+    env_file:
+      - .env
